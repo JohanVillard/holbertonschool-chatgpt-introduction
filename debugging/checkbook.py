@@ -83,7 +83,12 @@ def main():
 
         if action in ["deposit", "withdraw"]:
             try:
-                amount = float(input("Enter the amount: $"))
+                amount_str = input("Enter the amount: $")
+                if amount_str.strip() == "":  # Handle empty input
+                    raise ValueError("Amount cannot be empty.")
+
+                amount = float(amount_str)
+
                 if amount < 0:
                     raise ValueError("The amount must be a positive number.")
 
