@@ -12,6 +12,11 @@ Checker : NOK
 
 ## 2. Debugging - HTML / Javascript
 
+OK
+Checker : NOK
+
+## 3. Debugging -Python Mines
+
 NOK
 Checker : NOK
 
