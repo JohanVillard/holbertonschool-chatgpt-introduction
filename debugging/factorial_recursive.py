@@ -1,4 +1,17 @@
 #!/usr/bin/python3
+"""
+This module contains a function to compute the factorial of a non-negative integer.
+
+Module Description:
+-------------------
+This script includes a recursive function to calculate the factorial of a non-negative
+integer and demonstrates how to handle command-line arguments to use this function.
+
+Usage:
+------
+Run this script from the command line with an integer argument to compute its factorial.
+"""
+
 import sys
 
 
