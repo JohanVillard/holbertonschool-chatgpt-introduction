@@ -97,7 +97,10 @@ def main():
                 elif action == "withdraw":
                     cb.withdraw(amount)
             except ValueError as e:
-                print(f"Error: {e}")
+                print(f"ValueError: {e}")
+            except Exception as e:
+                # Catch any other unexpected exceptions
+                print(f"An unexpected error occurred: {e}")
 
         elif action == "balance":
             cb.get_balance()
