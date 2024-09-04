@@ -1,5 +1,26 @@
 #!/usr/bin/python3
 
+"""
+Minesweeper Game Module.
+
+This module implements a simple console-based Minesweeper game in Python.
+
+Classes:
+--------
+- Minesweeper: A class representing the Minesweeper game.
+
+Functions:
+----------
+- clear_screen(): Clears the console screen.
+
+Usage:
+------
+Run the script to start a new game of Minesweeper.
+The player interacts with the game by entering coordinates to reveal cells
+on the game field. The game continues until the player either wins by revealing
+all non-mine cells or loses by hitting a mine.
+"""
+
 import os
 import random
 
@@ -136,21 +157,25 @@ class Minesweeper:
                             self.reveal(nx, ny)
         return True
 
+    def is_won(self):
+        """Check if the game is won by revealing all non-mine cells."""
+        return self.revealed_cells == self.total_cells - len(self.mines)
+
     def play(self):
-        """Main game loop to play Minesweeper."""
+        """Loop to play Minesweeper."""
         while True:
             self.print_board()
             try:
                 x = int(input("Enter x coordinate: "))
                 y = int(input("Enter y coordinate: "))
                 if not (0 <= x < self.width and 0 <= y < self.height):
-                    print("Coordinates out of bounds. Please enter valid coordinates.")
+                    print("Coordinates out of bounds. Please enter valid.")
                     continue
                 if not self.reveal(x, y):
                     self.print_board(reveal=True)
                     print("Game Over! You hit a mine.")
                     break
-                if self.revealed_cells == self.total_cells - len(self.mines):
+                if self.is_won():
                     self.print_board(reveal=True)
                     print("Congratulations! You've won the game.")
                     break

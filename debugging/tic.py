@@ -1,4 +1,23 @@
 #!/usr/bin/python3
+"""
+Tic-Tac-Toe Game Implementation.
+
+This script provides a simple implementation of the classic Tic-Tac-Toe game.
+Players alternate between "X" and "O" to mark cells on a 3x3 board.
+The game continues until a player wins or the board is full and the game
+ends in a draw.
+
+Functions
+---------
+print_board(board)
+    Displays the current state of the game board.
+check_winner(board)
+    Checks if there is a winner on the current board.
+check_draw(board)
+    Checks if the game is a draw (i.e., the board is full and no winner).
+tic_tac_toe()
+    Runs the main game loop for Tic-Tac-Toe.
+"""
 
 
 def print_board(board):
@@ -13,7 +32,7 @@ def print_board(board):
     """
     for row in board:
         print(" | ".join(row))
-        print("-" * 5)
+        print("-" * (len(row) * 4 - 1))
 
 
 def check_winner(board):
@@ -30,18 +49,23 @@ def check_winner(board):
     bool
         True if there is a winner, otherwise False.
     """
-    for row in board:
-        if row.count(row[0]) == len(row) and row[0] != " ":
+    size = len(board)
+
+    # Check rows and columns
+    for i in range(size):
+        if all(board[i][j] == board[i][0] and board[i][0] != " " for j in range(size)):
+            return True
+        if all(board[j][i] == board[0][i] and board[0][i] != " " for j in range(size)):
             return True
 
-    for col in range(len(board[0])):
-        if board[0][col] == board[1][col] == board[2][col] and board[0][col] != " ":
-            return True
-
-    if board[0][0] == board[1][1] == board[2][2] and board[0][0] != " ":
+    # Check diagonals
+    if all(board[i][i] == board[0][0] and board[0][0] != " " for i in range(size)):
         return True
-
-    if board[0][2] == board[1][1] == board[2][0] and board[0][2] != " ":
+    if all(
+        board[i][size - 1 - i] == board[0][size -
+                                           1] and board[0][size - 1] != " "
+        for i in range(size)
+    ):
         return True
 
     return False
@@ -61,18 +85,16 @@ def check_draw(board):
     bool
         True if the board is full and no player has won, otherwise False.
     """
-    for row in board:
-        if " " in row:
-            return False
-    return True
+    return all(cell != " " for row in board for cell in row) and not check_winner(board)
 
 
 def tic_tac_toe():
     """
     Run the Tic-Tac-Toe game.
 
-    This function initializes the game board and alternates between players "X" and "O".
-    Players are prompted to enter their move until there is a winner or the game ends in a draw.
+    This function initializes the game board and alternates between players "X"
+    and "O". Players are prompted to enter their move until there is a winner
+    or the game ends in a draw.
     """
     board = [[" "] * 3 for _ in range(3)]
     player = "X"
@@ -81,8 +103,9 @@ def tic_tac_toe():
         print_board(board)
         try:
             row = int(input(f"Enter row (0, 1, or 2) for player {player}: "))
-            col = int(input(f"Enter column (0, 1, or 2) for player {player}: "))
-            if row not in [0, 1, 2] or col not in [0, 1, 2]:
+            col = int(
+                input(f"Enter column (0, 1, or 2) for player {player}: "))
+            if not (0 <= row < 3 and 0 <= col < 3):
                 print("Invalid input! Please enter a number between 0 and 2.")
                 continue
         except ValueError:

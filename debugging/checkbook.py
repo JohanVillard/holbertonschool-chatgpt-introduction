@@ -1,9 +1,37 @@
 #!/usr/bin/python3
+"""
+Checkbook Management Module.
+
+This module defines a simple Checkbook class to manage a bank account balance
+with basic operations such as deposit, withdrawal, and balance inquiry.
+
+The module allows users to interactively manage their checkbook by choosing
+to deposit money, withdraw money, or check the current balance. It is designed
+to handle invalid inputs gracefully and ensure that operations are performed
+only with valid amounts.
+
+Classes:
+--------
+Checkbook:
+    A class that manages a simple bank account with methods to deposit,
+    withdraw, and check the balance.
+
+Functions:
+----------
+main():
+    Interacts with the user to perform checkbook operations in a loop until
+    the user decides to exit the program.
+
+Usage:
+------
+Run the script and follow the on-screen instructions to deposit, withdraw,
+or check the balance in your checkbook.
+"""
 
 
 class Checkbook:
     """
-    A simple checkbook class to manage bank account balance with basic operations.
+    A simple checkbook class to manage bank account balance.
 
     Attributes
     ----------
@@ -22,7 +50,8 @@ class Checkbook:
         Parameters
         ----------
         amount : float
-            The amount of money to deposit into the account. Must be a positive value.
+            The amount of money to deposit into the account.
+            Must be a positive value.
 
         Raises
         ------
@@ -37,12 +66,13 @@ class Checkbook:
 
     def withdraw(self, amount):
         """
-        Withdraw a specified amount from the checkbook account if sufficient funds are available.
+        Withdraw a specified amount from the checkbook account.
 
         Parameters
         ----------
         amount : float
-            The amount of money to withdraw from the account. Must be a positive value.
+            The amount of money to withdraw from the account. Must be
+            a positive value.
 
         Raises
         ------
@@ -68,7 +98,8 @@ def main():
     Interact with the user and perform checkbook operations.
 
     The user can choose to deposit money, withdraw money, check the balance,
-    or exit the program. User inputs are processed in a loop until 'exit' is selected.
+    or exit the program.
+    User inputs are processed in a loop until 'exit' is selected.
     """
     cb = Checkbook()
     while True:
@@ -87,6 +118,7 @@ def main():
                 if amount_str.strip() == "":  # Handle empty input
                     raise ValueError("Amount cannot be empty.")
 
+                # Try to convert the input to a float
                 amount = float(amount_str)
 
                 if amount < 0:
@@ -97,7 +129,7 @@ def main():
                 elif action == "withdraw":
                     cb.withdraw(amount)
             except ValueError as e:
-                print(f"ValueError: {e}")
+                print(f"Error: {e}. Please enter a valid numeric amount.")
             except Exception as e:
                 # Catch any other unexpected exceptions
                 print(f"An unexpected error occurred: {e}")

@@ -9,72 +9,36 @@
         font-family: Arial, sans-serif;
         text-align: center;
         padding-top: 50px;
-        margin: 0;
-        transition: background-color 0.5s; /* Smooth transition for background color change */
       }
       button {
         padding: 10px 20px;
         font-size: 16px;
         cursor: pointer;
-        border: none;
-        border-radius: 5px;
-        background-color: #007bff;
-        color: white;
-        transition: background-color 0.3s; /* Smooth transition for button color change */
-      }
-      button:hover {
-        background-color: #0056b3; /* Darker color on hover */
-      }
-      button:focus {
-        outline: none; /* Remove default outline */
       }
     </style>
   </head>
   <body>
     <h2>Click the button to change the background color</h2>
+
     <button id="colorButton">Change Color</button>
 
     <script>
-      /**
-       * Adds event listeners to elements in the document.
-       */
-      function initializeEventListeners() {
-        const colorButton = document.getElementById("colorButton");
-        if (colorButton) {
-          colorButton.addEventListener("click", changeBackgroundColor);
-        } else {
-          console.error("Button with ID 'colorButton' not found.");
-        }
-      }
+      document
+        .getElementById("colorButton")
+        .addEventListener("click", function () {
+          changeBackgroundColor();
+        });
 
-      /**
-       * Generates a random hex color and sets it as the background color of the body.
-       */
       function changeBackgroundColor() {
-        try {
-          const randomColor = generateRandomColor();
-          document.body.style.backgroundColor = randomColor;
-        } catch (error) {
-          console.error("Error changing background color:", error);
-        }
-      }
-
-      /**
-       * Generates a random hex color.
-       *
-       * @returns {string} A hex color code.
-       */
-      function generateRandomColor() {
-        return (
+        // Generate a random color and pad with zeros if necessary
+        var randomColor =
           "#" +
           Math.floor(Math.random() * 16777215)
             .toString(16)
-            .padStart(6, "0")
-        );
+            .padStart(6, "0");
+        // Change the background color of the body
+        document.body.style.backgroundColor = randomColor;
       }
-
-      // Initialize event listeners when the document is fully loaded
-      document.addEventListener("DOMContentLoaded", initializeEventListeners);
     </script>
   </body>
 </html>
